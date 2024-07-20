@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
             text-align: center;
+            margin-bottom: 30px;
         }
         ul {
             list-style-type: none;
@@ -18,18 +29,27 @@
         }
         audio {
             width: 100%;
-            max-width: 600px;
         }
-        #next-button {
+        .player-controls {
+            text-align: center;
             margin-top: 20px;
+        }
+        .player-controls button {
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Music Player</h1>
-    <ul id="music-list"></ul>
-    <audio id="audio-player" controls></audio>
-    <button id="next-button">Próxima música</button>
+    <div class="container">
+        <h1>Music Player</h1>
+        <ul id="music-list" class="collection"></ul>
+        <div class="player-controls">
+            <audio id="audio-player" controls></audio>
+            <br>
+            <button id="prev-button" class="btn waves-effect waves-light">Anterior</button>
+            <button id="next-button" class="btn waves-effect waves-light">Próxima</button>
+        </div>
+    </div>
     <script>
         const musicFolder = 'music/';
         let musicFiles = [];
@@ -43,6 +63,7 @@
                     if (file.name.endsWith('.mp3')) {
                         musicFiles.push(musicFolder + file.name);
                         const li = document.createElement('li');
+                        li.className = "collection-item";
                         const a = document.createElement('a');
                         a.href = musicFolder + file.name;
                         a.textContent = file.name;
@@ -61,9 +82,15 @@
             playMusic(currentIndex + 1);
         };
 
+        document.getElementById('prev-button').onclick = function() {
+            playMusic(currentIndex - 1);
+        };
+
         function playMusic(index) {
             if (index >= musicFiles.length) {
-                index = 0; // Volta para a primeira música se chegar ao final da lista
+                index = 0;
+            } else if (index < 0) {
+                index = musicFiles.length - 1;
             }
             currentIndex = index;
             const audioPlayer = document.getElementById('audio-player');
@@ -71,5 +98,6 @@
             audioPlayer.play();
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
