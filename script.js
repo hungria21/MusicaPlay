@@ -1,5 +1,5 @@
 const songs = [
-    'music/song1.mp3',
+    'music/01 Me Libera.mp3',
     'music/song2.mp3',
     'music/song3.mp3'
 ];
