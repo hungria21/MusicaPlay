@@ -35,7 +35,7 @@
         let musicFiles = [];
         let currentIndex = 0;
 
-        fetch('https://api.github.com/repos/hungria21/Musicaplay/contents/music')
+        fetch('https://api.github.com/repos/hungria21/MusicaPlay/contents/music')
             .then(response => response.json())
             .then(data => {
                 const musicList = document.getElementById('music-list');
