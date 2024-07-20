@@ -1,40 +1,17 @@
-const songs = [
-    'music/01 Me Libera.mp3',
-    'music/song2.mp3',
-    'music/song3.mp3'
-];
+let slideIndex = 0;
+showSlides();
 
-let currentSongIndex = 0;
-const audio = document.getElementById('audio');
-const playButton = document.getElementById('play');
-const pauseButton = document.getElementById('pause');
-const prevButton = document.getElementById('prev');
-const nextButton = document.getElementById('next');
+function showSlides() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    slides.forEach((slide, index) => {
+        slide.style.display = 'none';
+    });
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1 }
+    slides[slideIndex - 1].style.display = 'block';
+    setTimeout(showSlides, 2000); // Muda a imagem a cada 2 segundos
+}
 
-playButton.addEventListener('click', () => {
-    audio.play();
-    playButton.style.display = 'none';
-    pauseButton.style.display = 'inline';
-});
-
-pauseButton.addEventListener('click', () => {
-    audio.pause();
-    playButton.style.display = 'inline';
-    pauseButton.style.display = 'none';
-});
-
-prevButton.addEventListener('click', () => {
-    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    audio.src = songs[currentSongIndex];
-    audio.play();
-    playButton.style.display = 'none';
-    pauseButton.style.display = 'inline';
-});
-
-nextButton.addEventListener('click', () => {
-    currentSongIndex = (currentSongIndex + 1) % songs.length;
-    audio.src = songs[currentSongIndex];
-    audio.play();
-    playButton.style.display = 'none';
-    pauseButton.style.display = 'inline';
-});
+function moveSlide(n) {
+    showSlides(slideIndex += n);
+}
